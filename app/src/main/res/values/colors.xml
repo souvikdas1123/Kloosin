@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#bebebe</color>
+
+
+    <color name="gray">#9f9f9f</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="golden">#ffbf00</color>
+
+    <color name="tr_white">#bfffffff</color>
+    <color name="tr_black">#bf000000</color>
+    <item name="transparent" type="color">#00FFFFFF</item>
+    <color name="black_transparent">#6f000000</color>
+    <color name = "gold_tranparent">#fec959</color>
+
+</resources>

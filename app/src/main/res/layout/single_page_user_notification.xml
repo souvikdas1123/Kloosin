@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_package1"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        app:cardCornerRadius="2dp"
+        android:layout_marginTop="20dp"
+        android:elevation="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/user_image"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/image"
+                    android:paddingStart="5dp"/>
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:visibility="invisible"
+                    android:layout_marginStart="10dp"
+                    android:text="Shalini Chopra"
+                    android:layout_toEndOf="@+id/user_image"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/title_name"
+                    android:text="Shalini Chopra"
+                    android:textColor="@android:color/black"
+
+
+                    android:layout_toRightOf="@+id/user_image"
+                    android:layout_marginStart="10dp"
+                    android:layout_below="@+id/user_name"/>
+
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/notition_bellImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="19dp"
+                app:srcCompat="@drawable/notification_bell" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+
+
+
+
+
+
+</RelativeLayout>

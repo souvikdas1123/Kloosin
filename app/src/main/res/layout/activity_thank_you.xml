@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/thank_u_bg"
+    android:padding="@dimen/margin_padding_large">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_xx_large"
+            android:src="@drawable/awsum_thanks_icon" />
+
+        <com.kloosin.kview.KLTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_x_large"
+            android:gravity="center"
+            android:text="Awesome, Thanks!"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_xxx_large"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.kloosin.kview.KLTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter Code"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <com.kloosin.kview.KLEditText
+                android:id="@+id/verification_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_padding_medium"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:hint="******"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:shadowColor="@color/gray"
+                android:textColor="@color/white"
+                android:textColorHint="@color/gray"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/margin_padding_medium"
+                android:background="@drawable/line" />
+
+            <com.kloosin.kview.KLTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_padding_medium"
+                android:gravity="center"
+                android:text="We've sent the confirmation code to your mail. Please check your inbox."
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <com.kloosin.kview.KLTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_padding_large"
+                android:text="Resend"
+                android:textColor="@color/white"
+                android:textSize="22sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/margin_padding_medium"
+                android:background="@drawable/line" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="15dp"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_sign_up"
+                android:layout_width="225dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginTop="1dp"
+                android:gravity="center_horizontal"
+                android:textSize="14dp"
+                android:text="Sign in"
+                android:textColor="#FFFFFF"
+                android:padding="10dp"
+                android:background="@drawable/button_shape_rgestation"
+
+
+
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <com.kloosin.kview.KLTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Don't have account?"
+                    android:textColor="@color/gray" />
+
+                <com.kloosin.kview.KLTextView
+                    android:id="@+id/btn_signin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:text="Sign In"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="10dp"
+    app:layout_flexGrow="1">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        android:padding="@dimen/margin_padding_small">
+
+        <com.kloosin.kview.KLTextView
+            android:id="@+id/tvChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/margin_padding_medium"
+            android:layout_marginRight="@dimen/margin_padding_large"
+            android:text="Place Holder!!"
+            android:textSize="11sp" />
+
+        <ImageView
+            android:id="@+id/ivClose"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_gravity="right|center"
+            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+    </FrameLayout>
+
+</android.support.v7.widget.CardView>
