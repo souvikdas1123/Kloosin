@@ -18,7 +18,7 @@
             android:layout_width="80dp"
             android:layout_height="96dp"
             android:layout_marginLeft="@dimen/margin_padding_medium"
-            android:src="@drawable/profile_img" />
+            android:src="@mipmap/user_pic" />
 
         <LinearLayout
             android:layout_width="match_parent"

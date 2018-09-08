@@ -18,6 +18,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -32,8 +33,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+
 import com.kloosin.R;
 import com.kloosin.dialog.Loading;
+import com.kloosin.dialog.ProfileMenu;
+import com.kloosin.fragment.EditProfileFragment;
 import com.kloosin.fragment.FeedFragment;
 import com.kloosin.fragment.InvitationFragment;
 import com.kloosin.fragment.ProfileFragment;
@@ -41,6 +45,7 @@ import com.kloosin.fragment.TrackFragment;
 import com.kloosin.service.KLRestService;
 import com.kloosin.service.model.UserDetails;
 import com.kloosin.service.model.UserPostRequst;
+import com.kloosin.utility.listener.PopupMenuListener;
 import com.kloosin.utility.u.AlertInfoHelper;
 import com.kloosin.utility.u.CommonHelper;
 import com.kloosin.utility.u.SPHelper;
@@ -80,9 +85,11 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     ImageView postSubmitButton;
     ImageView postSubmit;
     ProgressDialog progressDialog;
+    ImageView show_menu;
 
 
     EmojIconActions emojIcon;
+    Toolbar toolbar;
 
 
 
@@ -93,27 +100,22 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         super.onCreate(savedInstanceState);
 
         // MAKE THE SPLASH SCREEN A FULL SCREEN VIEW
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         // SET THE VIEW
         setContentView(R.layout.activity_main);
 
       //  imageView = (ImageView) findViewById(R.id.image_view);
         locationView = (ImageView)findViewById(R.id.locationview);
-       // postSubmitButton = (ImageView) findViewById(R.id.submit_btno);
-       // postSubmit  = (ImageView) findViewById(R.id.post_submit) ;
-
-      //  LinearLayout layoutBottomSheet = findViewById(R.id.bottom_sheet);
-        //sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
-
-
+        toolbar= findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         ImageView centerCircle = findViewById(R.id.center_circle);
         ImageView chatButton = findViewById(R.id.chat_button);
 
         ImageView cameraButton = findViewById(R.id.id_camera);
         ImageView usernotificationbutton = findViewById(R.id.usernotifitionbuttom);
+        show_menu=findViewById(R.id.show_menu);
+
 
 
       //  postSubmit.setOnClickListener(this);
@@ -153,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
         cameraButton.setOnClickListener(this);
         usernotificationbutton.setOnClickListener(this);
+        show_menu.setOnClickListener(this);
 
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -209,7 +212,8 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 //            }
 //        });
 
-        pushFragment( (SPHelper.getInstance(getMContext()).readBoolean(TagNameHelper.getInstance().IS_INVITATION_COMPLETED_KEY)) ? new FeedFragment() : new InvitationFragment(), false);
+        //pushFragment( (SPHelper.getInstance(getMContext()).readBoolean(TagNameHelper.getInstance().IS_INVITATION_COMPLETED_KEY)) ? new FeedFragment() : new InvitationFragment(), false);
+        pushFragment(new FeedFragment(),false);
     }
 
     public void pushFragment( Fragment _fragment ) {
@@ -280,6 +284,18 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 Intent inyetlocationView = new Intent(MainActivity.this, MapsActivity.class);
                 startActivity(inyetlocationView);
 
+                break;
+
+            case R.id.show_menu:
+                final ProfileMenu dialog = new ProfileMenu(MainActivity.this, R.style.DialogTheme);
+                dialog.setListener(new PopupMenuListener() {
+                    @Override
+                    public void onClick(int viewId) {
+                        dialog.dismiss();
+                        handleProfileMenuClick(viewId);
+                    }
+                });
+                dialog.show();
                 break;
 
 
@@ -386,7 +402,20 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 //
 //    }
 
-
+    private void handleProfileMenuClick(int viewId)
+    {
+        switch (viewId) {
+            case R.id.edit_profile_link:
+                ((MainActivity) getContext()).pushFragment(new EditProfileFragment(), true);
+                break;
+            case R.id.profile_image:
+                ((MainActivity) getContext()).pushFragment(new ProfileFragment(), true);
+                break;
+            case R.id.btn_logout:
+                CommonHelper.getInstance().performLogout(getContext());
+                break;
+        }
+    }
 
 
 

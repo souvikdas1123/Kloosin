@@ -20,7 +20,7 @@ public class ProfileMenu extends Dialog implements View.OnClickListener {
     private PopupMenuListener mListener;
     KLTextView klTextView;
 
-    public ProfileMenu(@NonNull Context context, int themeResId) {
+    public ProfileMenu(Context context, int themeResId) {
         super(context, themeResId);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.profile_menu_layout);

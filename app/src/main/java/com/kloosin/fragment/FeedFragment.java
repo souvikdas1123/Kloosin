@@ -52,7 +52,7 @@ public class FeedFragment extends Fragment implements View.OnClickListener, Swip
 
     private void initComponent() {
 
-        _view.findViewById(R.id.show_menu).setOnClickListener(this);
+//        _view.findViewById(R.id.show_menu).setOnClickListener(this);
         mSwipeRefreshLayout = _view.findViewById(R.id.swipe_layout);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
@@ -131,7 +131,8 @@ public class FeedFragment extends Fragment implements View.OnClickListener, Swip
         }
     }
 
-    private void handleProfileMenuClick(int viewId) {
+    private void handleProfileMenuClick(int viewId)
+    {
         switch (viewId) {
             case R.id.edit_profile_link:
                 ((MainActivity) getContext()).pushFragment(new EditProfileFragment(), true);
@@ -144,7 +145,6 @@ public class FeedFragment extends Fragment implements View.OnClickListener, Swip
                 break;
         }
     }
-
     private void handleNavigationBAR() {
         ((MainActivity) getContext()).findViewById(R.id.bottom_navigation_section).setVisibility(View.VISIBLE);
     }

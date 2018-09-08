@@ -52,8 +52,8 @@ public interface KLWebServiceAPI {
 
     @Multipart
     @POST("/api/UserTimeLine/PostTimeLine")
-    Call<Void> postImage1(@Part("userId") RequestBody userID, @Part  MultipartBody.Part file, @Part("postType") RequestBody postType,
-                          @Part("postBody") RequestBody postBody, @Part("longitude") int longitude, @Part("latitude") int latitude);
+    Call<Void> addPost(@Part("userId") RequestBody userID, @Part  MultipartBody.Part file, @Part("postType") RequestBody postType,
+                       @Part("postBody") RequestBody postBody, @Part("longitude") int longitude, @Part("latitude") int latitude);
 
 
 

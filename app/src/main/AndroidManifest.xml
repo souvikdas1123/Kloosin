@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -24,7 +25,6 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
         android:value="@string/app_name"
         tools:replace="android:icon,android:value">
         <meta-data
@@ -34,7 +34,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".activity.SplashScreenActivity">
+        <activity android:name=".activity.SplashScreenActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,19 +44,27 @@
         </activity>
         <activity
             android:name=".activity.LoginScreenActivity"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.SignUpScreenActivity" />
         <activity android:name=".activity.ThankYouActivity" />
         <activity
             android:name=".activity.MainActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            />
         <activity android:name=".activity.ChatActivity" />
         <activity android:name=".activity.UsersActivity" />
         <activity android:name=".activity.NoficationPage" />
         <activity android:name=".activity.UserNotification" />
         <activity android:name=".activity.NewChatActivity" />
         <activity android:name=".activity.MapsActivity" />
-        <activity android:name=".activity.SharePostActivity"></activity>
+        <activity
+            android:name=".activity.SharePostActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+        </activity>
     </application>
 
 </manifest>

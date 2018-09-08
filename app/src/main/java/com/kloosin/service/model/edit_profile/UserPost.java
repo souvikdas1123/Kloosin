@@ -1,6 +1,19 @@
 package com.kloosin.service.model.edit_profile;
 
 public class UserPost {
+
+    private String postImagePath;
+    private String userId;
+    private String postType;
+    private String postBody;
+    private double longitude;
+    private double latitude;
+
+    // for testing
+    private int lati;
+    private int longi;
+
+
     public String getPostImagePath() {
         return postImagePath;
     }
@@ -33,27 +46,35 @@ public class UserPost {
         this.postBody = postBody;
     }
 
-    public int getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(int longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public int getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(int latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public  String postImagePath;
-    public  String userId;
-    public  String postType;
-    public  String  postBody;
-    public  int longitude;
-    public  int  latitude;
+    public int getLati() {
+        return lati;
+    }
 
+    public void setLati(int lati) {
+        this.lati = lati;
+    }
+
+    public int getLongi() {
+        return longi;
+    }
+
+    public void setLongi(int longi) {
+        this.longi = longi;
+    }
 }
