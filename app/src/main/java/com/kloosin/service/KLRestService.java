@@ -19,6 +19,7 @@ import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class KLRestService {
 
@@ -61,6 +62,7 @@ public class KLRestService {
             httpClient.connectTimeout(30, TimeUnit.SECONDS);
             _retrofit = new Retrofit.Builder()
                     .baseUrl(URLHelper.getInstance().HOST_NAME)
+                    .addConverterFactory(ScalarsConverterFactory.create()) // added for sending JSON in body of Url
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(httpClient.build())
                     .build();

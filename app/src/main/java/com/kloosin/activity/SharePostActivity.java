@@ -119,8 +119,9 @@ public class SharePostActivity extends AppCompatActivity implements View.OnClick
             userNameTxt.setText(commonHelper.getCurrentUser(this).fullName);
         else
             userNameTxt.setText("Unknown user");
-       /* if(commonHelper.getCurrentUser(this).getProfileImage()!=null)
-            Picasso.get().load(commonHelper.getCurrentUser(this).getProfileImage()).into(profile_image);*/
+        CommonHelper.getInstance().setImageFromExternalSource(this, profile_image, commonHelper.getCurrentUser(this).profileImage, false);
+
+
 
 //        newrootView = findViewById(R.id.rootviewlayot);
 //        emojiconEditText = (EmojiconEditText) findViewById(R.id.emojiconedit_text);

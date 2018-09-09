@@ -85,7 +85,7 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
             public void onResponse(Call<UserProfileDetails> call, Response<UserProfileDetails> response) {
                 getLoader().dismiss();
                 if(response.code() == 200) {
-                    
+
                     populateWidgets(response.body());
                 } else {
                     RequestHelper.getInstance().handleErrorResponse( getContext(), response.code(), response.errorBody() );
@@ -155,10 +155,10 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
         txtDOB = _view.findViewById(R.id.txtDOB);
 
         _view.findViewById(R.id.btn_edit_pp).setOnClickListener(this);
-        _view.findViewById(R.id.profile_nxt_btn).setOnClickListener(this);
+        /* _view.findViewById(R.id.profile_nxt_btn).setOnClickListener(this);*/
         _view.findViewById(R.id.profile_finish_btn).setOnClickListener(this);
         _view.findViewById(R.id.back_btn).setOnClickListener(this);
-        _view.findViewById(R.id.imgSecondScreenBack).setOnClickListener(this);
+        /*_view.findViewById(R.id.imgSecondScreenBack).setOnClickListener(this);*/
 
         btn_male.setOnClickListener(this);
         btn_female.setOnClickListener(this);
@@ -172,18 +172,18 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
             case R.id.btn_edit_pp:
                 pickImage();
                 break;
-            case R.id.profile_nxt_btn :
+            /*case R.id.profile_nxt_btn :
                 display_second_form();
                 break;
             case R.id.profile_finish_btn :
                 update_user_details();
-                break;
+                break;*/
             case R.id.back_btn :
                 getActivity().onBackPressed();
                 break;
-            case R.id.imgSecondScreenBack :
+            /*case R.id.imgSecondScreenBack :
                 display_first_form();
-                break;
+                break;*/
             case R.id.btn_male :
                 reflectSexView(1); // ;)
                 break;
@@ -282,7 +282,7 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    private void display_first_form() {
+   /* private void display_first_form() {
         _view.findViewById(R.id.first_screen).setVisibility(View.VISIBLE);
         _view.findViewById(R.id.second_screen).setVisibility(View.GONE);
     }
@@ -290,7 +290,7 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
     private void display_second_form() {
         _view.findViewById(R.id.first_screen).setVisibility(View.GONE);
         _view.findViewById(R.id.second_screen).setVisibility(View.VISIBLE);
-    }
+    }*/
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

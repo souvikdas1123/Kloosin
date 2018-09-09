@@ -1,11 +1,15 @@
 package com.kloosin.service;
 
+import com.google.gson.JsonObject;
+import com.kloosin.service.model.FriendModel;
 import com.kloosin.service.model.Message;
 import com.kloosin.service.model.Post;
 import com.kloosin.service.model.UserDetails;
 import com.kloosin.service.model.UserPostRequst;
 import com.kloosin.service.model.UserRegistration;
 import com.kloosin.service.model.edit_profile.UserProfileDetails;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -65,6 +69,10 @@ public interface KLWebServiceAPI {
 
     @POST("/api/UserMessage/SendMessage")
     Call<Void> sendMessage(@Body Message.SendBody _message);
+
+    @Headers({"Content-Type: application/json"})
+    @POST("/api/UserProfile/SearchProfile")
+    Call<List<FriendModel>> getFriends(@Body String s);
 
     @GET("/api/UserMessage/GetAllByReceiver/{userId}")
     Call<List<Message.ResponseBody>> getAllByReceiver( @Path("userId") String userID );

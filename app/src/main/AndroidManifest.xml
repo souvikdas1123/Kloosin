@@ -34,7 +34,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".activity.SplashScreenActivity"
+        <activity
+            android:name=".activity.SplashScreenActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,17 +45,22 @@
         </activity>
         <activity
             android:name=".activity.LoginScreenActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.SignUpScreenActivity" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".activity.SignUpScreenActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".activity.ThankYouActivity" />
         <activity
             android:name=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            />
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
         <activity android:name=".activity.ChatActivity" />
-        <activity android:name=".activity.UsersActivity" />
+        <activity android:name=".activity.UsersActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.NoficationPage" />
         <activity android:name=".activity.UserNotification" />
         <activity android:name=".activity.NewChatActivity" />
@@ -65,6 +71,10 @@
             android:windowSoftInputMode="stateHidden|adjustResize">
 
         </activity>
+        <activity
+            android:name=".activity.FriendsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

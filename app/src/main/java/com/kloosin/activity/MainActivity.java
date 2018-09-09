@@ -3,6 +3,7 @@ package com.kloosin.activity;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,7 +18,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -35,41 +38,31 @@ import android.widget.Toast;
 
 
 import com.kloosin.R;
+import com.kloosin.common.Common;
 import com.kloosin.dialog.Loading;
 import com.kloosin.dialog.ProfileMenu;
 import com.kloosin.fragment.EditProfileFragment;
 import com.kloosin.fragment.FeedFragment;
-import com.kloosin.fragment.InvitationFragment;
-import com.kloosin.fragment.ProfileFragment;
-import com.kloosin.fragment.TrackFragment;
-import com.kloosin.service.KLRestService;
-import com.kloosin.service.model.UserDetails;
-import com.kloosin.service.model.UserPostRequst;
-import com.kloosin.utility.listener.PopupMenuListener;
-import com.kloosin.utility.u.AlertInfoHelper;
-import com.kloosin.utility.u.CommonHelper;
-import com.kloosin.utility.u.SPHelper;
-import com.kloosin.utility.u.TagNameHelper;
 
-import java.io.File;
-import java.io.IOException;
+import com.kloosin.fragment.ProfileFragment;
+
+import com.kloosin.utility.listener.PopupMenuListener;
+
+import com.kloosin.utility.u.CommonHelper;
 
 import hani.momanii.supernova_emoji_library.Actions.EmojIconActions;
 import hani.momanii.supernova_emoji_library.Helper.EmojiconEditText;
 import hani.momanii.supernova_emoji_library.Helper.EmojiconTextView;
-import okhttp3.Call;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
+
 
 import static com.activeandroid.Cache.getContext;
 
-public class MainActivity extends AppCompatActivity implements  View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Loading mLoader;
     private BottomSheetBehavior sheetBehavior;
     int PICK_IMAGE_PAN = 1;
-    android.hardware.Camera camera ;
+    android.hardware.Camera camera;
     ImageView imageView;
     //*created by Shaid Reza
 
@@ -90,9 +83,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
     EmojIconActions emojIcon;
     Toolbar toolbar;
-
-
-
+    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,9 +95,9 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         // SET THE VIEW
         setContentView(R.layout.activity_main);
 
-      //  imageView = (ImageView) findViewById(R.id.image_view);
-        locationView = (ImageView)findViewById(R.id.locationview);
-        toolbar= findViewById(R.id.toolbar);
+        //  imageView = (ImageView) findViewById(R.id.image_view);
+        locationView = (ImageView) findViewById(R.id.locationview);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ImageView centerCircle = findViewById(R.id.center_circle);
@@ -114,40 +105,9 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
         ImageView cameraButton = findViewById(R.id.id_camera);
         ImageView usernotificationbutton = findViewById(R.id.usernotifitionbuttom);
-        show_menu=findViewById(R.id.show_menu);
+        show_menu = findViewById(R.id.show_menu);
 
-
-
-      //  postSubmit.setOnClickListener(this);
-      //  layoutBottomSheet.setOnClickListener(this);
-      //  postSubmitButton.setOnClickListener(this);
         locationView.setOnClickListener(this);
-
-
-        //emoji intrigate by sahid reza
-//        newrootView = findViewById(R.id.newrootview);
-//        emojiImageView = (ImageView) findViewById(R.id.emoji_btn);
-//        emojiconEditText = (EmojiconEditText) findViewById(R.id.emojicon_edit_text);
-//        emojIcon = new EmojIconActions(this, newrootView, emojiconEditText, emojiImageView);
-//        emojIcon.ShowEmojIcon();
-//        emojIcon.setIconsIds(R.drawable.ic_action_keyboard, R.drawable.smiley);
-//        emojIcon.setKeyboardListener(new EmojIconActions.KeyboardListener() {
-//
-//            @Override
-//            public void onKeyboardOpen() {
-//                Log.e(TAG, "Keyboard opened!");
-//            }
-//
-//            @Override
-//            public void onKeyboardClose() {
-//                Log.e(TAG, "Keyboard closed");
-//            }
-//
-//
-//
-//        });
-
-
 
 
         centerCircle.setOnClickListener(this);
@@ -160,70 +120,22 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
 // button2.setEnabled(false);
-            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
         }
 
 
-
-
-
-
-// @Override
-// public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-// if (requestCode == 0) {
-// if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
-// && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-// button2.setEnabled(true);
-// }
-// }
-// }
-
-
-
-    /**
-     * bottom sheet behaviour function
-     */
-//        sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-//            @Override
-//            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-//
-//                switch (newState){
-//                    case BottomSheetBehavior.STATE_HIDDEN:
-//                        break;
-//                    case BottomSheetBehavior.STATE_EXPANDED: {
-//
-//                    }
-//                    break;
-//                    case BottomSheetBehavior.STATE_COLLAPSED: {
-//                        findViewById(R.id.bg).setVisibility(View.GONE);
-//                    }
-//                    break;
-//                    case BottomSheetBehavior.STATE_DRAGGING:
-//                        break;
-//                    case BottomSheetBehavior.STATE_SETTLING:
-//                        break;
-//                }
-//            }
-//
-//            @Override
-//            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-//                findViewById(R.id.bg).setVisibility(View.VISIBLE);
-//                findViewById(R.id.bg).setAlpha(slideOffset);
-//            }
-//        });
-
         //pushFragment( (SPHelper.getInstance(getMContext()).readBoolean(TagNameHelper.getInstance().IS_INVITATION_COMPLETED_KEY)) ? new FeedFragment() : new InvitationFragment(), false);
-        pushFragment(new FeedFragment(),false);
+        pushFragment(new FeedFragment(), false);
     }
 
-    public void pushFragment( Fragment _fragment ) {
-        pushFragment( _fragment, true );
+    public void pushFragment(Fragment _fragment) {
+        pushFragment(_fragment, true);
     }
 
-    public void pushFragment(Fragment _fragment, boolean _addToBackStack ) {
-        FragmentTransaction _transaction    =   getSupportFragmentManager().beginTransaction();
-        if ( _addToBackStack ) _transaction.addToBackStack( _fragment.getClass().getSimpleName() );
-        _transaction.replace( R.id.container, _fragment );
+    public void pushFragment(Fragment _fragment, boolean _addToBackStack) {
+        FragmentTransaction _transaction = getSupportFragmentManager().beginTransaction();
+        if (_addToBackStack) _transaction.addToBackStack(_fragment.getClass().getSimpleName());
+        _transaction.replace(R.id.container, _fragment);
         _transaction.commit();
     }
 
@@ -250,13 +162,6 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
                 break;
 
-//            case R.id.attach:
-//                Intent intent1 = new Intent();
-//                intent1.setType("image/*");
-//                intent1.setAction(Intent.ACTION_PICK);
-//                startActivityForResult(Intent.createChooser(intent1, "Select Image"), PICK_IMAGE_PAN);
-//
-//                break;
 
             case R.id.id_camera:
 
@@ -299,46 +204,11 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 break;
 
 
-//            case R.id.post_submit:
-//
-//                Intent refresh = new Intent(this, MainActivity.class);
-//                startActivity(refresh);
-//                this.finish();
-//
-//
-//                break;
-
         }
 
 
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == PICK_IMAGE_PAN && resultCode == RESULT_OK && data != null && data.getData() !=null) {
-//            Uri uri = data.getData();
-//            try {
-//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
-//                imageView.setImageBitmap(bitmap);
-//            }catch (IOException e){
-//                e.printStackTrace();
-//            }
-//
-//
-//        }
-//
-//
-//    }
-
-
-
-
-        @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -347,17 +217,15 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
 
     /**
-     *
      * @return Application Loader
      */
     public Loading getLoader() {
-        if ( null == mLoader )
+        if (null == mLoader)
             mLoader = new Loading(getMContext());
         return mLoader;
     }
 
     /**
-     *
      * @return Context
      */
     private Context getMContext() {
@@ -370,46 +238,13 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-
-    ///////////////*userPostStatus
-
-
-//    private  void userPostStatus(final File file){
-//
-//        /////*netwoking check
-//        if (!KLRestService.getInstance().isNetworkAvailable(getMContext())) {
-//            AlertInfoHelper.getInstance().alertNetworkError(getMContext());
-//            return;
-//        }
-//
-//        ////*using Loadder
-//
-//        progressDialog = new ProgressDialog(MainActivity.this);
-//        progressDialog.setMessage("Loading Please wait ....");
-//        progressDialog.show();
-//
-//        UserPostRequst _requst = new UserPostRequst ();
-//        _requst.setPostBody(String.valueOf(((EmojiconEditText) findViewById(R.id.emojicon_edit_text)).getText()));
-//      //  _requst.setPostBody(String.valueOf(EditText)f);
-//        _requst.setPostType("Image");
-//        _requst.setLatitude(654);
-//        _requst.setLognitude(123);
-//        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//        MultipartBody.Part body = MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
-//        RequestBody description = RequestBody.create(MediaType.parse("multipart/form-data"), CommonHelper.getInstance().getCurrentUser(getContext()).getUserId());
-//       // Call<UserPostRequst> user_service = KLRestService.getInstance().getService(getContext()).postStatus(description,body);
-//         //Call<UserPostRequst> user_service = KLRestService.getInstance().getService(getContext()).postStatus(File,us);
-//
-//    }
-
-    private void handleProfileMenuClick(int viewId)
-    {
+    private void handleProfileMenuClick(int viewId) {
         switch (viewId) {
             case R.id.edit_profile_link:
-                ((MainActivity) getContext()).pushFragment(new EditProfileFragment(), true);
+                (MainActivity.this).pushFragment(new EditProfileFragment(), true);
                 break;
             case R.id.profile_image:
-                ((MainActivity) getContext()).pushFragment(new ProfileFragment(), true);
+                (MainActivity.this).pushFragment(new ProfileFragment(), true);
                 break;
             case R.id.btn_logout:
                 CommonHelper.getInstance().performLogout(getContext());
@@ -417,6 +252,36 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+        searchView.setSearchableInfo(searchManager
+                .getSearchableInfo(getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        // listening to search query text change
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                Intent i = new Intent(MainActivity.this, FriendsActivity.class);
+                i.putExtra("friendName", query);
+                startActivity(i);
+                return true;
 
 
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                //populate json function
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
+    }
 }

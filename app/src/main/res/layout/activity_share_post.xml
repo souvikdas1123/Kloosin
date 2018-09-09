@@ -10,13 +10,14 @@
         android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/backboder"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#ffffff"
+            android:background="@drawable/backboder"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <RelativeLayout
@@ -54,7 +55,7 @@
                     android:drawableEnd="@drawable/down_arraow"
                     android:gravity="center_horizontal"
                     android:padding="4dp"
-                    android:text="public"
+                    android:text="Public"
                     android:textColor="@android:color/black"
                     android:textSize="15dp" />
 

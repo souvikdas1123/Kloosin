@@ -8,13 +8,14 @@
         android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/backboder"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#ffff8800"
+            android:background="@drawable/backboder"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <LinearLayout
@@ -44,7 +45,10 @@
                     android:singleLine="true"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textColorHint="@color/white" />
+                    android:textColorHint="@color/white"
+                    android:visibility="invisible"/>
+
+
 
                 <ImageView
                     android:id="@+id/show_menu"

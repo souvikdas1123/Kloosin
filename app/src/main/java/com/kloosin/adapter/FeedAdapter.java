@@ -40,7 +40,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         Post single_post = getItem(position);
         holder.tv_name.setText(single_post.getUserName());
-        holder.tv_date.setText(single_post.getPostTime().substring(0,10));
+        String date = single_post.getPostlocalTime().substring(0, 10);
+        String time = single_post.getPostlocalTime().substring(11, 19);
+        holder.tv_date.setText(date + "\n" + time);
         holder.tv_description.setText(single_post.getPostBody());
         if (!single_post.getPostImagePath().equals("") && single_post.getPostBody().equals("")) {
             holder.tv_title.setVisibility(View.GONE);
@@ -49,7 +51,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             CommonHelper.getInstance().setImageFromExternalSource(_context, holder.iv_post_image, single_post.getPostImagePath(), false);
         } else if (!single_post.getPostImagePath().equals("") && !single_post.getPostBody().equals("")) {
             holder.iv_post_image.setVisibility(View.VISIBLE);
-            CommonHelper.getInstance().setImageFromExternalSource(_context, holder.iv_post_image, single_post.getPostImagePath(),false);
+            CommonHelper.getInstance().setImageFromExternalSource(_context, holder.iv_post_image, single_post.getPostImagePath(), false);
             holder.tv_title.setVisibility(View.VISIBLE);
             holder.tv_description.setVisibility(View.VISIBLE);
 

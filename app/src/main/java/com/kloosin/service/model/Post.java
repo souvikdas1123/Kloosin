@@ -11,6 +11,7 @@ public class Post {
     private String postBody;
     private String userProfileImagePath;
     private String postTime;
+    private String postlocalTime;
 
     private String userName;
     private long userId;
@@ -95,5 +96,9 @@ public class Post {
 
     public double getLatitude() {
         return (latitude);
+    }
+
+    public String getPostlocalTime() {
+        return postlocalTime;
     }
 }

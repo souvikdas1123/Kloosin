@@ -42,7 +42,7 @@
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/profile_img"
+                    android:src="@mipmap/user_pic"
                     app:civ_border_color="@android:color/transparent"
                     app:civ_border_width="2dp" />
 
@@ -267,49 +267,6 @@
                         android:layout_height="1dp"
                         android:background="#000000"></View>
                 </LinearLayout>
-
-                <com.kloosin.kview.KLTextView
-                    android:id="@+id/profile_nxt_btn"
-                    android:layout_width="220dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/blue_btn_background"
-                    android:gravity="center"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginLeft="90dp"
-                    android:paddingBottom="15dp"
-                    android:paddingLeft="35dp"
-                    android:paddingRight="35dp"
-                    android:paddingTop="15dp"
-                    android:text="Next"
-                    android:textColor="@color/white" />
-
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/second_screen"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_medium">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="@dimen/margin_padding_medium">
-
-                <ImageButton
-                    android:id="@+id/imgSecondScreenBack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_arrow_back_black" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -541,6 +498,7 @@
                         android:background="#000000"></View>
                 </LinearLayout>
 
+
                 <com.kloosin.kview.KLTextView
                     android:id="@+id/profile_finish_btn"
                     android:layout_width="wrap_content"
@@ -552,12 +510,15 @@
                     android:ems="8"
                     android:gravity="center"
                     android:padding="@dimen/margin_padding_large"
-                    android:text="Finish"
+                    android:text="Update"
                     android:textColor="@color/white" />
 
+
             </LinearLayout>
+
         </android.support.v4.widget.NestedScrollView>
 
     </RelativeLayout>
+
 
 </RelativeLayout>
