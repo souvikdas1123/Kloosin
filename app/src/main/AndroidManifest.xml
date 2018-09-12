@@ -13,6 +13,9 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -26,13 +29,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:value="@string/app_name"
-        tools:replace="android:icon,android:value">
+        tools:replace="android:allowBackup">
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-        <meta-data
+       <!-- <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="@string/google_maps_key" />-->
 
         <activity
             android:name=".activity.SplashScreenActivity"
@@ -47,8 +50,9 @@
             android:name=".activity.LoginScreenActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".activity.SignUpScreenActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".activity.SignUpScreenActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.ThankYouActivity" />
         <activity
             android:name=".activity.MainActivity"
@@ -59,12 +63,15 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity android:name=".activity.ChatActivity" />
-        <activity android:name=".activity.UsersActivity"
+        <activity
+            android:name=".activity.UsersActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.NoficationPage" />
         <activity android:name=".activity.UserNotification" />
         <activity android:name=".activity.NewChatActivity" />
-        <activity android:name=".activity.MapsActivity" />
+        <activity
+            android:name=".activity.MapsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SharePostActivity"
             android:theme="@style/AppTheme.NoActionBar"
@@ -74,6 +81,24 @@
         <activity
             android:name=".activity.FriendsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.TrackActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_map_api_key_sayantan" />
+
+       <!-- <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />-->
+
+
+        <service
+            android:name=".service.LocationService"
+            android:enabled="true" />
 
     </application>
 

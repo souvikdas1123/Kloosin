@@ -2,15 +2,23 @@ package com.kloosin.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.ActivityCompat;
@@ -18,8 +26,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -33,11 +44,13 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
 import com.kloosin.R;
+import com.kloosin.adapter.FriendAdapter;
 import com.kloosin.common.Common;
 import com.kloosin.dialog.Loading;
 import com.kloosin.dialog.ProfileMenu;
@@ -46,13 +59,26 @@ import com.kloosin.fragment.FeedFragment;
 
 import com.kloosin.fragment.ProfileFragment;
 
+import com.kloosin.service.KLRestService;
+import com.kloosin.service.LocationService;
+import com.kloosin.service.model.FriendModel;
+import com.kloosin.service.model.FriendTrack;
 import com.kloosin.utility.listener.PopupMenuListener;
 
 import com.kloosin.utility.u.CommonHelper;
+import com.kloosin.utility.u.RequestHelper;
+
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import hani.momanii.supernova_emoji_library.Actions.EmojIconActions;
 import hani.momanii.supernova_emoji_library.Helper.EmojiconEditText;
 import hani.momanii.supernova_emoji_library.Helper.EmojiconTextView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 import static com.activeandroid.Cache.getContext;
@@ -79,20 +105,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageView postSubmit;
     ProgressDialog progressDialog;
     ImageView show_menu;
+    ProgressBar pBar;
+    List<FriendTrack> trackList = new ArrayList<>();
 
 
     EmojIconActions emojIcon;
     Toolbar toolbar;
     SearchView searchView;
 
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String message = intent.getStringExtra("message");
+            Log.d("receiver", "Got message Main: " + message);
+
+            if (message == null) {
+
+                return;
+            }
+            if (message.contentEquals("Locationfetched")) {
+
+                if (Common.latitude != 0.0 && Common.longitude != 0.0) {
+                    try {
+                        String userId = CommonHelper.getInstance().getCurrentUser(MainActivity.this).getUserId();
+                        postLocationToServer(Common.latitude, Common.longitude, Integer.parseInt(userId));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+                processStopService(LocationService.TAG);
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-        // MAKE THE SPLASH SCREEN A FULL SCREEN VIEW
-
-        // SET THE VIEW
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter("locationUpdate"));
         setContentView(R.layout.activity_main);
 
         //  imageView = (ImageView) findViewById(R.id.image_view);
@@ -106,9 +159,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ImageView cameraButton = findViewById(R.id.id_camera);
         ImageView usernotificationbutton = findViewById(R.id.usernotifitionbuttom);
         show_menu = findViewById(R.id.show_menu);
+        pBar = findViewById(R.id.pBar);
 
         locationView.setOnClickListener(this);
+        new Handler().postDelayed(new Runnable() {
 
+            @Override
+            public void run() {
+                if (isLocationPermissionGranted()) {
+                    if (isGPSon()) {
+                        pBar.setVisibility(View.VISIBLE);
+                        processStartService(LocationService.TAG);
+
+
+                    }
+                }
+
+            }
+        }, 1000);
+
+        if (isMyServiceRunning(LocationService.class) && Common.latitude != 0.0 && Common.longitude != 0.0) {
+            processStopService(LocationService.TAG);
+
+        } else if (!isMyServiceRunning(LocationService.class)) {
+            processStartService(LocationService.TAG);
+        }
 
         centerCircle.setOnClickListener(this);
         chatButton.setOnClickListener(this);
@@ -186,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
             case R.id.locationview:
-                Intent inyetlocationView = new Intent(MainActivity.this, MapsActivity.class);
+                Intent inyetlocationView = new Intent(MainActivity.this, TrackActivity.class);
                 startActivity(inyetlocationView);
 
                 break;
@@ -207,12 +282,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
 
@@ -284,4 +353,114 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         return super.onCreateOptionsMenu(menu);
     }
+
+    private void processStartService(final String tag) {
+        Intent intent = new Intent(getApplicationContext(), LocationService.class);
+        intent.addCategory(tag);
+        startService(intent);
+    }
+
+    private void processStopService(final String tag) {
+        Intent intent = new Intent(getApplicationContext(), LocationService.class);
+        intent.addCategory(tag);
+        stopService(intent);
+    }
+
+    public boolean isLocationPermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+                Log.d("Message", "Permission is granted");
+                return true;
+            } else {
+
+                Log.d("Message", "Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_PHONE_STATE}, 1);
+                return false;
+            }
+        } else { // permission is automatically granted on sdk<23 upon
+            // installation
+            Log.d("Message", "Permission is granted");
+            return true;
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Log.d("Message", "Permission: " + permissions[0] + "was " + grantResults[0]);
+            // resume tasks needing this permission
+//            processStartService(LocationService.TAG);
+//            sendLocationtoServer(String.valueOf(Common.Latitude),String.valueOf(Common.Longitude));
+        }
+    }
+
+    private boolean isGPSon() {
+        boolean isOn = false;
+        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        isOn = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        if (!isOn) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(final DialogInterface dialog, final int id) {
+                            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                        }
+                    })
+
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(final DialogInterface dialog, final int id) {
+                            dialog.cancel();
+                        }
+                    });
+            final AlertDialog alert = builder.create();
+            alert.show();
+        }
+        return isOn;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        pBar.setVisibility(View.GONE);
+
+    }
+
+    private void postLocationToServer(double latitude, double longitude, int userId) throws Exception {
+        pBar.setVisibility(View.VISIBLE);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("userId", userId);
+        jsonObject.put("latitude", latitude);
+        jsonObject.put("longitude", longitude);
+        jsonObject.put("deviceId", Build.SERIAL);
+        Call<Void> trackFriend = KLRestService.getInstance().getService(this).postFriendPosition(jsonObject.toString());
+        trackFriend.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                pBar.setVisibility(View.GONE);
+                if (response.code() == 200) {
+                    System.out.println("Location posted to server");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

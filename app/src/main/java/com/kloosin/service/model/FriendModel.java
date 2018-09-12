@@ -1,7 +1,9 @@
 package com.kloosin.service.model;
 
-/**Author SD
- * Taking only the elements required now to create the model will be updated later**/
+/**
+ * Author SD
+ * Taking only the elements required now to create the model will be updated later
+ **/
 public class FriendModel {
 
     private String emailId;
@@ -10,6 +12,7 @@ public class FriendModel {
     private String fullName;
     private String country;
     private boolean isFriend;
+    private int userId;
 
     public String getEmailId() {
         return emailId;
@@ -57,5 +60,9 @@ public class FriendModel {
 
     public void setFriend(boolean friend) {
         isFriend = friend;
+    }
+
+    public int getUserId() {
+        return userId;
     }
 }

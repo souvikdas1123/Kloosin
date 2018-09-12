@@ -2,6 +2,7 @@ package com.kloosin.service;
 
 import com.google.gson.JsonObject;
 import com.kloosin.service.model.FriendModel;
+import com.kloosin.service.model.FriendTrack;
 import com.kloosin.service.model.Message;
 import com.kloosin.service.model.Post;
 import com.kloosin.service.model.UserDetails;
@@ -40,7 +41,7 @@ public interface KLWebServiceAPI {
     Call<UserProfileDetails> getUserDetailsById(@Path("userId") String userId);
 
     //////////
-    @Headers({ "Content-Type: application/json;charset=UTF-8"})//this code will change by sahid
+    @Headers({"Content-Type: application/json;charset=UTF-8"})//this code will change by sahid
     @POST("/api/UserProfile/UpdateUserProfile")
     Call<Void> updateUserProfileDetails(@Body UserProfileDetails userProfileDetails);
     ///////////////////////////////////////////////
@@ -56,9 +57,8 @@ public interface KLWebServiceAPI {
 
     @Multipart
     @POST("/api/UserTimeLine/PostTimeLine")
-    Call<Void> addPost(@Part("userId") RequestBody userID, @Part  MultipartBody.Part file, @Part("postType") RequestBody postType,
+    Call<Void> addPost(@Part("userId") RequestBody userID, @Part MultipartBody.Part file, @Part("postType") RequestBody postType,
                        @Part("postBody") RequestBody postBody, @Part("longitude") int longitude, @Part("latitude") int latitude);
-
 
 
     @GET("/api/UserTimeLine/GetAll")
@@ -74,10 +74,14 @@ public interface KLWebServiceAPI {
     @POST("/api/UserProfile/SearchProfile")
     Call<List<FriendModel>> getFriends(@Body String s);
 
+    @Headers({"Content-Type: application/json"})
+    @POST("/api/UserTracking/InsertUserTracking")
+    Call<Void> postFriendPosition(@Body String s);
+
     @GET("/api/UserMessage/GetAllByReceiver/{userId}")
-    Call<List<Message.ResponseBody>> getAllByReceiver( @Path("userId") String userID );
+    Call<List<Message.ResponseBody>> getAllByReceiver(@Path("userId") String userID);
 
     @GET("/api/UserMessage/GetAllBySender/{userId}")
-    Call<List<Message.ResponseBody>> getAllBySender( @Path("userId") String userID );
+    Call<List<Message.ResponseBody>> getAllBySender(@Path("userId") String userID);
 
 }

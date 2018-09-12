@@ -46,8 +46,7 @@
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
-                    android:visibility="invisible"/>
-
+                    android:visibility="invisible" />
 
 
                 <ImageView
@@ -88,9 +87,9 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/bottom_navigation_section"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:id="@+id/bottom_navigation_section"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
         android:background="@drawable/backboder"
@@ -131,6 +130,13 @@
             android:layout_weight="2"
             android:src="@drawable/ic_message" />
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/pBar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 </RelativeLayout>
 
 
