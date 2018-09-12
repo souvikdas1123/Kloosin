@@ -45,16 +45,18 @@
             android:layout_centerVertical="true"
             android:scaleType="centerInside"
             android:src="@drawable/notification_bell"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/trackTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/trackPic"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="Track"
-            android:visibility="gone"/>
+            android:padding="2dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/locator"
+            android:visibility="gone" />
 
 
     </RelativeLayout>

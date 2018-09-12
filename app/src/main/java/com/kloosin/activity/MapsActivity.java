@@ -112,11 +112,11 @@ public class MapsActivity extends AppCompatActivity {
                            // URL url = new URL(profileImage);
                            // Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
                            // opt.icon(BitmapDescriptorFactory.fromBitmap(bmp));
-                            opt.icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher));
+                            opt.icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_round));
                             opt.title(friendName);
                             googleMap.addMarker(opt);
                             googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitude, longitude)));
-                            googleMap.animateCamera(CameraUpdateFactory.zoomTo(12));
+                            googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
                         } catch (Exception e) {
                             e.printStackTrace();

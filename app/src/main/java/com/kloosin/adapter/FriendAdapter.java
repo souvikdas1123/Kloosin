@@ -44,9 +44,9 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
         final FriendModel fObj = values.get(position);
         holder.friendNameTxt.setText(fObj.getFullName());
         if (isTrack) {
-            holder.trackTxt.setVisibility(View.VISIBLE);
+            holder.trackPic.setVisibility(View.VISIBLE);
             holder.bellImage.setVisibility(View.GONE);
-            holder.trackTxt.setOnClickListener(new View.OnClickListener() {
+            holder.trackPic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent i = new Intent(context, MapsActivity.class);
@@ -56,7 +56,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
                 }
             });
         } else {
-            holder.trackTxt.setVisibility(View.GONE);
+            holder.trackPic.setVisibility(View.GONE);
             holder.bellImage.setVisibility(View.VISIBLE);
         }
 
@@ -70,16 +70,16 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView friendNameTxt, trackTxt;
+        private TextView friendNameTxt;
         private CircleImageView profileImage;
-        ImageView bellImage;
+        ImageView bellImage, trackPic;
 
         public ViewHolder(View itemView) {
             super(itemView);
             friendNameTxt = itemView.findViewById(R.id.friendNameTxt);
             profileImage = itemView.findViewById(R.id.profile_image);
             bellImage = itemView.findViewById(R.id.bellImage);
-            trackTxt = itemView.findViewById(R.id.trackTxt);
+            trackPic = itemView.findViewById(R.id.trackPic);
         }
     }
 
