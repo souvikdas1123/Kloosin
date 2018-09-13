@@ -108,9 +108,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_description"
-                        android:layout_centerInParent="true"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="2dp"
                         android:padding="@dimen/margin_padding_medium"
+                        android:scaleType="centerInside"
                         android:src="@mipmap/user_pic"
                         android:visibility="gone" />
                 </RelativeLayout>
