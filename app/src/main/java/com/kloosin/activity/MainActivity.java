@@ -87,8 +87,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Loading mLoader;
     private BottomSheetBehavior sheetBehavior;
-    int PICK_IMAGE_PAN = 1;
-    android.hardware.Camera camera;
     ImageView imageView;
     //*created by Shaid Reza
 
