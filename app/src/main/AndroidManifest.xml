@@ -33,9 +33,9 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-       <!-- <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />-->
+        <!-- <meta-data
+             android:name="com.google.android.geo.API_KEY"
+             android:value="@string/google_maps_key" />-->
 
         <activity
             android:name=".activity.SplashScreenActivity"
@@ -53,7 +53,9 @@
         <activity
             android:name=".activity.SignUpScreenActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.ThankYouActivity" />
+        <activity
+            android:name=".activity.ThankYouActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
@@ -66,9 +68,15 @@
         <activity
             android:name=".activity.UsersActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.NoficationPage" />
-        <activity android:name=".activity.UserNotification" />
-        <activity android:name=".activity.NewChatActivity" />
+        <activity
+            android:name=".activity.NoficationPage"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.UserNotification"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.NewChatActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.MapsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -91,9 +99,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_map_api_key_sayantan" />
 
-       <!-- <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />-->
+        <!-- <meta-data
+             android:name="com.google.android.gms.version"
+             android:value="@integer/google_play_services_version" />-->
 
 
         <service

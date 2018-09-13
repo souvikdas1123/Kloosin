@@ -193,12 +193,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         show_menu.setOnClickListener(this);
 
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-// button2.setEnabled(false);
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-        }
-
-
         //pushFragment( (SPHelper.getInstance(getMContext()).readBoolean(TagNameHelper.getInstance().IS_INVITATION_COMPLETED_KEY)) ? new FeedFragment() : new InvitationFragment(), false);
         pushFragment(new FeedFragment(), false);
     }
@@ -390,9 +384,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Log.d("Message", "Permission: " + permissions[0] + "was " + grantResults[0]);
-            // resume tasks needing this permission
-//            processStartService(LocationService.TAG);
-//            sendLocationtoServer(String.valueOf(Common.Latitude),String.valueOf(Common.Longitude));
+
         }
     }
 

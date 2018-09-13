@@ -36,9 +36,7 @@ public class ThankYouActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // MAKE THE SPLASH SCREEN A FULL SCREEN VIEW
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 
         setContentView(R.layout.activity_thank_you);
 

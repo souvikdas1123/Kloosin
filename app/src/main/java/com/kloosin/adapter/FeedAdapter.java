@@ -42,7 +42,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         holder.tv_name.setText(single_post.getUserName());
         String date = single_post.getPostlocalTime().substring(0, 10);
         String time = single_post.getPostlocalTime().substring(11, 19);
-        holder.tv_date.setText(date + "\n" + time);
+        holder.tv_date.setText(date);
         holder.tv_description.setText(single_post.getPostBody());
         if (!single_post.getPostImagePath().equals("") && single_post.getPostBody().equals("")) {
             holder.tv_title.setVisibility(View.GONE);
@@ -52,12 +52,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         } else if (!single_post.getPostImagePath().equals("") && !single_post.getPostBody().equals("")) {
             holder.iv_post_image.setVisibility(View.VISIBLE);
             CommonHelper.getInstance().setImageFromExternalSource(_context, holder.iv_post_image, single_post.getPostImagePath(), false);
-            holder.tv_title.setVisibility(View.VISIBLE);
+            holder.tv_title.setVisibility(View.GONE);
             holder.tv_description.setVisibility(View.VISIBLE);
 
         } else if (single_post.getPostImagePath().equals("") && !single_post.getPostBody().equals("")) {
             holder.iv_post_image.setVisibility(View.GONE);
-            holder.tv_title.setVisibility(View.VISIBLE);
+            holder.tv_title.setVisibility(View.GONE);
             holder.tv_description.setVisibility(View.VISIBLE);
         }
         CommonHelper.getInstance().setImageFromExternalSource(_context, holder.iv_profile_image, single_post.getUserProfileImagePath(), false);

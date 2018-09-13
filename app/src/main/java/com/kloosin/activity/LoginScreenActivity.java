@@ -45,11 +45,6 @@ public class LoginScreenActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // MAKE THE SPLASH SCREEN A FULL SCREEN VIEW
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         // SET THE VIEW
         setContentView(R.layout.activity_login_screen);
         button_sigin = (Button) findViewById(R.id.btn_signin);
@@ -91,9 +86,9 @@ public class LoginScreenActivity extends AppCompatActivity implements View.OnCli
         }
         ///getLoader().show();
         //code changes
-        progressDialog = new ProgressDialog(LoginScreenActivity.this);
+        /*progressDialog = new ProgressDialog(LoginScreenActivity.this);
         progressDialog.setMessage("Loading Please wait ....");
-        progressDialog.show();
+        progressDialog.show();*/
 
         UserDetails.LoginRequest _request = new UserDetails.LoginRequest();
         _request.setGrantType("password");
